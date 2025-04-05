@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ATIS Information</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .atis-info {
+            margin-top: 20px;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 3px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Get ATIS Information</h2>
+        <form method="POST">
+            <label for="icao">Enter Airport ICAO Code:</label>
+            <input type="text" id="icao" name="icao" required>
+            <button type="submit">Get ATIS</button>
+        </form>
+        <p>Example: Enter KMIA, KJFK, KLAX, etc.</p>
+
+        {% if atis_data %}
+        <div class="atis-info">
+            <h3>ATIS for {{ airport_icao }}</h3>
+            <p><strong>ATIS Information Code:</strong> {{ atis_data.code }}</p>
+            <p><strong>ATIS Info:</strong> {{ atis_data.datis }}</p>
+        </div>
+        {% elif airport_icao and not atis_data %}
+        <p class="error">Could not retrieve ATIS data for {{ airport_icao }}. Please check the ICAO code.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
